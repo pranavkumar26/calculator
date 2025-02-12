@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Calculator</title>
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --bg-dark: #0a0a1a;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Orbitron', sans-serif;
+            background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, #090918 100%);
+            margin: 0;
+            overflow: hidden;
+            color: white;
+        }
+        .calculator {
+            background: linear-gradient(145deg, rgba(20,20,50,0.8) 0%, rgba(30,30,60,0.8) 100%);
+            border-radius: 25px;
+            border: 2px solid rgba(0,255,255,0.2);
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.4), 
+                0 5px 15px rgba(0,255,255,0.2);
+            width: 380px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        #display {
+            width: 100%;
+            height: 90px;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 40px;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            color: var(--primary-color);
+            font-family: 'Orbitron', monospace;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        button {
+            padding: 20px;
+            font-size: 20px;
+            border: 2px solid transparent;
+            background: rgba(0,255,255,0.1);
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+        button:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
+            transform: scale(1.05);
+        }
+        .operator {
+            background: rgba(255,0,255,0.1);
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        .clear {
+            grid-column: span 4;
+            background: rgba(255,0,0,0.1);
+            color: red;
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="operator" onclick="appendToDisplay('*')">*</button>
+            
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button class="operator" onclick="calculate()">=</button>
+            <button class="operator" onclick="appendToDisplay('/')">÷</button>
+            
+            <button class="clear" onclick="clearDisplay()">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculate() {
+            try {
+                const result = eval(document.getElementById('display').value);
+                document.getElementById('display').value = result;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
